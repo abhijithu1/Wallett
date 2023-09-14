@@ -1,75 +1,139 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mytodo/widgets/home_screen_card.dart';
+import 'package:mytodo/widgets/contact_cards.dart';
+import 'package:mytodo/widgets/credit_cards.dart';
+import 'package:mytodo/widgets/transaction_list.dart';
 
-class ScreenHome extends StatelessWidget {
-  const ScreenHome({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double bal = 8251.36;
-
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 75,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0, left: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                      bottom: 0
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications_none,
+                      size: 30,
                     ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
-                        color: Colors.white,
-                        size: 30,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "\$8,251.36",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Available Balance",
+                  style: GoogleFonts.quicksand(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Quick Send",
+                  style: GoogleFonts.quicksand(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const SizedBox(
+                height: 120,
+                child: ContactCard(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "My Cards",
+                      style: GoogleFonts.quicksand(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            SizedBox(
-              height: 55,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
+                    const Text(
+                      "Show All",
+                      style: TextStyle(fontWeight: FontWeight.w300),
                     ),
-                    child: Text("Quick Send",
-                        style: GoogleFonts.quicksand(
-                            fontSize: 45, color: Colors.white,fontWeight: FontWeight.bold),),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              // height: 518,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 0,
-                  left: 4,
-                  right: 4,
-                  bottom: 0,
+                  ],
                 ),
-                child: HomeScreenCard(bal: bal),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              const SizedBox(
+                height: 130,
+                child: ContactCardCreditCard(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Transactions",
+                      style: GoogleFonts.quicksand(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text(
+                      "Show All",
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Expanded(
+                child: TransactionList(),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -37,7 +37,71 @@ class ContactCardCreditCard extends StatelessWidget {
                   ),
                 ),
                 color: _colorCards[randomNumber],
-                child: const Column(children: []),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 70,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, top: 10),
+                          child: Card(
+                            color: Colors.white,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.monetization_on,
+                                      size: 15,
+                                    ),
+                                    Icon(Icons.arrow_circle_right, size: 15)
+                                  ],
+                                ),
+                                Text(
+                                  "Debit",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10.0,
+                        ),
+                        child: Text(
+                          "\$2,254.36",
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10.0,
+                        ),
+                        child: Text(
+                          "****3625",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w100,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           );
