@@ -136,6 +136,25 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(
+              Icons.home_rounded,
+            ),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.monetization_on_outlined,
+              ),
+              label: "Payment"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wallet),
+            label: "Wallet",
+          ),
+        ],
+      ),
     );
   }
 }
