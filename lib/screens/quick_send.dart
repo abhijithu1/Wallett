@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytodo/widgets/quick_pay_card.dart';
 import 'package:mytodo/widgets/quick_send_card.dart';
 
 class QuickSend extends StatelessWidget {
@@ -8,7 +9,15 @@ class QuickSend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double bal = 8251.36;
-
+    List<Widget> cards = [
+      HomeScreenCard(bal: bal),
+      ListView(
+        physics: const BouncingScrollPhysics(),
+        children: const [
+          QuickPayCard(),
+        ],
+      )
+    ];
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -19,10 +28,7 @@ class QuickSend extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                      bottom: 0
-                    ),
+                    padding: const EdgeInsets.only(left: 15, bottom: 0),
                     child: IconButton(
                       onPressed: () {},
                       icon: const Icon(
@@ -47,9 +53,13 @@ class QuickSend extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       left: 15,
                     ),
-                    child: Text("Quick Send",
-                        style: GoogleFonts.quicksand(
-                            fontSize: 45, color: Colors.white,fontWeight: FontWeight.bold),),
+                    child: Text(
+                      "Quick Send",
+                      style: GoogleFonts.quicksand(
+                          fontSize: 45,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -66,7 +76,7 @@ class QuickSend extends StatelessWidget {
                   right: 4,
                   bottom: 0,
                 ),
-                child: HomeScreenCard(bal: bal),
+                child: cards[1],
               ),
             ),
           ],

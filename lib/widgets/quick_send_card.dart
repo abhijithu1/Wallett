@@ -10,7 +10,6 @@ class HomeScreenCard extends StatelessWidget {
   });
 
   final double bal;
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -111,7 +110,9 @@ class HomeScreenCard extends StatelessWidget {
                           Icons.add,
                           color: Colors.black,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                        },
                         label: Text(
                           "Add Card",
                           style: GoogleFonts.quicksand(
@@ -140,13 +141,13 @@ class HomeScreenCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                      
                       flex: 1,
                       child: SizedBox(
                         height: double.infinity,
                         child: TextButton(
                           style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(Colors.white),
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.white),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.black),
@@ -169,7 +170,9 @@ class HomeScreenCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8,),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Expanded(
                       flex: 1,
                       child: SizedBox(
