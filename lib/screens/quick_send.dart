@@ -10,13 +10,16 @@ class QuickSend extends StatelessWidget {
   Widget build(BuildContext context) {
     double bal = 8251.36;
     List<Widget> cards = [
-      HomeScreenCard(bal: bal),
-      ListView(
-        physics: const BouncingScrollPhysics(),
-        children: const [
-          QuickPayCard(),
-        ],
-      )
+      Padding(
+        padding: const EdgeInsets.only(
+          top: 0,
+          left: 10,
+          right: 10,
+          bottom: 0,
+        ),
+        child: HomeScreenCard(bal: bal),
+      ),
+      const Padding(padding: EdgeInsets.only(bottom: 0,right: 10,left: 10), child: QuickPayCard())
     ];
     return SafeArea(
       child: Scaffold(
@@ -30,7 +33,9 @@ class QuickSend extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 15, bottom: 0),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(
                         Icons.arrow_back_rounded,
                         color: Colors.white,
