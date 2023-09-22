@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class QuickPayCard extends StatelessWidget {
   const QuickPayCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<String> buttons = [
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  ".",
+                  "0",
+                  "X"
+                ];
     double bal = 8251.36;
     return SizedBox(
       height: double.infinity,
@@ -56,60 +71,19 @@ class QuickPayCard extends StatelessWidget {
               height: 10,
               width: double.infinity,
             ),
-            GridView.count(
+            GridView.builder(
+              itemCount: buttons.length,
               padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
               shrinkWrap: true,
-              crossAxisCount: 3,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0,
-              childAspectRatio: 1.2,
-              children: [
-                NumberButton(
-                  displaytext: "1",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "2",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "3",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "4",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "5",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "6",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "7",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "8",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "9",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: ".",
-                  onTap: () {},
-                ),
-                NumberButton(
-                  displaytext: "0",
-                  onTap: () {},
-                ),
-                NumberButton(displaytext: "X", onTap: () {})
-              ],
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 0,
+                  childAspectRatio: 1.2,
+                  mainAxisSpacing: 0),
+              itemBuilder: ((context, index) {
+                
+                return NumberButton(displaytext: buttons[index], onTap: () {});
+              }),
             ),
             SizedBox(
               height: 70,
@@ -221,8 +195,7 @@ class NumberButton extends StatelessWidget {
           child: Center(
             child: Text(
               displaytext,
-              style:
-                  const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           )),
     );
