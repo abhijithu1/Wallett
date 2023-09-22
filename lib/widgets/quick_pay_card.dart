@@ -1,26 +1,35 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytodo/screens/home_screen.dart';
 
-class QuickPayCard extends StatelessWidget {
+class QuickPayCard extends StatefulWidget {
   const QuickPayCard({super.key});
 
   @override
+  State<QuickPayCard> createState() => _QuickPayCardState();
+}
+
+class _QuickPayCardState extends State<QuickPayCard> {
+  List<String> buttons = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    ".",
+    "0",
+    "X"
+  ];
+  double bal = 8251.36;
+  String money = "";
+  double? moneyDouble = 0;
+  @override
   Widget build(BuildContext context) {
-    List<String> buttons = [
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  ".",
-                  "0",
-                  "X"
-                ];
-    double bal = 8251.36;
     return SizedBox(
       height: double.infinity,
       child: Card(
@@ -39,12 +48,15 @@ class QuickPayCard extends StatelessWidget {
               width: double.infinity,
               child: Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      "\$254.99",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      "\$$money",
+                      style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                     ),
                   ),
                   const SizedBox(
@@ -81,8 +93,19 @@ class QuickPayCard extends StatelessWidget {
                   childAspectRatio: 1.2,
                   mainAxisSpacing: 0),
               itemBuilder: ((context, index) {
-                
-                return NumberButton(displaytext: buttons[index], onTap: () {});
+                return NumberButton(
+                    displaytext: buttons[index],
+                    onTap: index != 11
+                        ? () {
+                            setState(() {
+                              money += buttons[index];
+                            });
+                          }
+                        : () {
+                            setState(() {
+                              money = money.substring(0, money.length - 1);
+                            });
+                          });
               }),
             ),
             SizedBox(
@@ -111,7 +134,12 @@ class QuickPayCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()));
+                          },
                           child: Text(
                             "Cancel",
                             style: GoogleFonts.quicksand(
@@ -150,7 +178,22 @@ class QuickPayCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            moneyDouble = double.tryParse(money);
+                            if (moneyDouble == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("its null")));
+                            }
+                            moneyDouble! > bal
+                                ? ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("You cant do that")))
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text("Cool dude")));
+                            if (moneyDouble! > bal) {
+                              
+                            }
+                          },
                           child: Text(
                             "Send Money",
                             style: GoogleFonts.quicksand(
@@ -174,30 +217,31 @@ class QuickPayCard extends StatelessWidget {
 
 class NumberButton extends StatelessWidget {
   final String displaytext;
-  final VoidCallback onTap;
+  final onTap;
   const NumberButton(
       {super.key, required this.displaytext, required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-          color: Colors.white,
-          elevation: 5,
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                30,
-              ),
+    return Card(
+        color: Colors.white,
+        elevation: 5,
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              30,
             ),
           ),
-          child: Center(
-            child: Text(
-              displaytext,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-          )),
-    );
+        ),
+        child: TextButton(
+          style: const ButtonStyle(
+              overlayColor: MaterialStatePropertyAll(Colors.transparent)),
+          onPressed: onTap,
+          child: Text(
+            displaytext,
+            style: const TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ));
   }
 }

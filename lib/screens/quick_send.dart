@@ -3,9 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/widgets/quick_pay_card.dart';
 import 'package:mytodo/widgets/quick_send_card.dart';
 
-class QuickSend extends StatelessWidget {
+class QuickSend extends StatefulWidget {
   const QuickSend({super.key});
 
+  @override
+  State<QuickSend> createState() => _QuickSendState();
+}
+
+class _QuickSendState extends State<QuickSend> {
   @override
   Widget build(BuildContext context) {
     double bal = 8251.36;

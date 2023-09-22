@@ -3,13 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/widgets/contact_cards.dart';
 import 'package:mytodo/widgets/credit_cards.dart';
 
-class HomeScreenCard extends StatelessWidget {
+class HomeScreenCard extends StatefulWidget {
   const HomeScreenCard({
     super.key,
     required this.bal,
   });
 
   final double bal;
+
+  @override
+  State<HomeScreenCard> createState() => _HomeScreenCardState();
+}
+
+class _HomeScreenCardState extends State<HomeScreenCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,7 +50,7 @@ class HomeScreenCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Available Balance : \$$bal",
+                  "Available Balance : \$${widget.bal}",
                   style: const TextStyle(
                     fontSize: 15,
                   ),
