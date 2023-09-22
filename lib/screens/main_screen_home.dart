@@ -70,9 +70,9 @@ class MainHome extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const SizedBox(
+               SizedBox(
                 height: 120,
-                child: ContactCard(),
+                child: ContactCard(ontapcontactfunc: (){},),
               ),
               const SizedBox(
                 height: 10,

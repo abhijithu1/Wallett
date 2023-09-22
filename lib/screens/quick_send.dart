@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytodo/providers/wallet_provider.dart';
 import 'package:mytodo/widgets/quick_pay_card.dart';
 import 'package:mytodo/widgets/quick_send_card.dart';
+import 'package:provider/provider.dart';
 
 class QuickSend extends StatefulWidget {
   const QuickSend({super.key});
@@ -13,7 +15,9 @@ class QuickSend extends StatefulWidget {
 class _QuickSendState extends State<QuickSend> {
   @override
   Widget build(BuildContext context) {
+    bool isquickPay = Provider.of<Walletprovider>(context).isQuicksend;
     double bal = 8251.36;
+    double? payableAmt = Provider.of<Walletprovider>(context).payableAmt;
     List<Widget> cards = [
       Padding(
         padding: const EdgeInsets.only(
@@ -22,9 +26,11 @@ class _QuickSendState extends State<QuickSend> {
           right: 10,
           bottom: 0,
         ),
-        child: HomeScreenCard(bal: bal),
+        child: HomeScreenCard(bal: bal,payAmount: payableAmt,),
       ),
-      const Padding(padding: EdgeInsets.only(bottom: 0,right: 10,left: 10), child: QuickPayCard())
+      const Padding(
+          padding: EdgeInsets.only(bottom: 0, right: 10, left: 10),
+          child: QuickPayCard())
     ];
     return SafeArea(
       child: Scaffold(
@@ -86,7 +92,7 @@ class _QuickSendState extends State<QuickSend> {
                   right: 4,
                   bottom: 0,
                 ),
-                child: cards[1],
+                child: isquickPay == false ? cards[1] : cards[0],
               ),
             ),
           ],

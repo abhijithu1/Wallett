@@ -1,3 +1,4 @@
+import 'package:mytodo/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -180,22 +181,27 @@ class _QuickPayCardState extends State<QuickPayCard> {
                           ),
                           onPressed: () {
                             moneyDouble = double.tryParse(money);
-                            if (moneyDouble == null) {
+                            if (moneyDouble == null || moneyDouble == 0) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text("its null")));
                             }
-                            moneyDouble! > bal
+                            moneyDouble! > bal 
                                 ? ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text("You cant do that")))
                                 : ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("Cool dude")));
-                            if (moneyDouble! > bal) {
-                              
+                            if (moneyDouble! < bal) {
+                              Provider.of<Walletprovider>(context,
+                                      listen: false)
+                                  .payableAmt = moneyDouble;
+                              Provider.of<Walletprovider>(context,
+                                      listen: false)
+                                  .clickedSend();
                             }
                           },
                           child: Text(
-                            "Send Money",
+                            "Next",
                             style: GoogleFonts.quicksand(
                               fontSize: 20,
                               color: Colors.white,

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytodo/providers/wallet_provider.dart';
+import 'package:mytodo/screens/payment_done.dart';
 import 'package:mytodo/widgets/contact_cards.dart';
 import 'package:mytodo/widgets/credit_cards.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenCard extends StatefulWidget {
-  const HomeScreenCard({
-    super.key,
-    required this.bal,
-  });
+  const HomeScreenCard({super.key, required this.bal, required this.payAmount});
 
   final double bal;
+  final double? payAmount;
 
   @override
   State<HomeScreenCard> createState() => _HomeScreenCardState();
@@ -34,11 +35,12 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
             width: double.infinity,
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 10.0),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "\$254.99",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    "\$${widget.payAmount}",
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
@@ -76,9 +78,19 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
               ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 120,
-            child: ContactCard(),
+            child: ContactCard(
+              
+              ontapcontactfunc: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PaymentDone(
+                          
+                        )));
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 13, bottom: 13),
@@ -116,9 +128,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                           Icons.add,
                           color: Colors.black,
                         ),
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         label: Text(
                           "Add Card",
                           style: GoogleFonts.quicksand(
@@ -165,7 +175,10 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<Walletprovider>(context, listen: false)
+                                .undoclicksend();
+                          },
                           child: Text(
                             "Cancel",
                             style: GoogleFonts.quicksand(

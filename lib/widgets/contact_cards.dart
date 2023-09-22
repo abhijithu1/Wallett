@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytodo/providers/wallet_provider.dart';
+import 'package:provider/provider.dart';
 
 class ContactCard extends StatelessWidget {
-  const ContactCard({super.key});
-
+  const ContactCard({
+    super.key,
+    required this.ontapcontactfunc,
+    
+  });
+  final ontapcontactfunc;
+  
   @override
   Widget build(BuildContext context) {
     List<Color> _colorCards = const [
@@ -13,20 +20,9 @@ class ContactCard extends StatelessWidget {
       Color.fromARGB(255, 226, 221, 204),
       Color.fromARGB(255, 234, 220, 202)
     ];
-    List<String> imageUrls = [
-      "https://images.pexels.com/photos/5490276/pexels-photo-5490276.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "https://media.istockphoto.com/id/856599656/photo/passport-picture-of-a-smiling-turkish-businesswoman.jpg?s=612x612&w=0&k=20&c=dgETy-9neViQs7SATDTOOa80QOhVFcLIomBFRxWVN_8=",
-      "https://media.istockphoto.com/id/615279718/photo/businesswoman-portrait-on-white.jpg?s=612x612&w=0&k=20&c=Aa2Vy4faAPe9fAE68Z01jej9YqPqy-RbAteIlF3wcjk=",
-      "https://media.istockphoto.com/id/913062404/photo/face-of-businessman-against-white-background.jpg?s=612x612&w=0&k=20&c=Fg0rvqoqvOiH2ayHxsjq2LngGMNLhMryh9mL6njbNfI=",
-      "https://media.istockphoto.com/id/515596766/photo/official-portrait-of-a-blonde-woman.jpg?s=612x612&w=0&k=20&c=yDY2nH6SNtfvn4c_BOuuZ27ZkENFevgvYxZD2Plk_vo=",
-    ];
-    List<String> contactNames = [
-      "John",
-      "Jenny",
-      "Margaret",
-      "Nissam",
-      "Sophy"
-    ];
+    List<String> imageUrls = Provider.of<Walletprovider>(context).imageUrls;
+    List<String> contactNames =
+        Provider.of<Walletprovider>(context).contactNames;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 5,
@@ -39,10 +35,13 @@ class ContactCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: _colorCards[index],
-                    backgroundImage: NetworkImage(imageUrls[index]),
+                  child: GestureDetector(
+                    onTap: ontapcontactfunc,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: _colorCards[index],
+                      backgroundImage: NetworkImage(imageUrls[index]),
+                    ),
                   ),
                 ),
                 Text(
