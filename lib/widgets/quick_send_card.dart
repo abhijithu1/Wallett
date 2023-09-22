@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/providers/wallet_provider.dart';
-import 'package:mytodo/screens/payment_done.dart';
 import 'package:mytodo/widgets/contact_cards.dart';
 import 'package:mytodo/widgets/credit_cards.dart';
 import 'package:provider/provider.dart';
@@ -78,19 +77,9 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 120,
-            child: ContactCard(
-              
-              ontapcontactfunc: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentDone(
-                          
-                        )));
-              },
-            ),
+            child: ContactCard(),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 13, bottom: 13),

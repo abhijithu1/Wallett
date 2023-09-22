@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/providers/wallet_provider.dart';
+import 'package:mytodo/screens/payment_done.dart';
 import 'package:provider/provider.dart';
 
 class ContactCard extends StatelessWidget {
   const ContactCard({
     super.key,
-    required this.ontapcontactfunc,
-    
   });
-  final ontapcontactfunc;
-  
+
   @override
   Widget build(BuildContext context) {
     List<Color> _colorCards = const [
@@ -20,6 +18,7 @@ class ContactCard extends StatelessWidget {
       Color.fromARGB(255, 226, 221, 204),
       Color.fromARGB(255, 234, 220, 202)
     ];
+    bool isPayment = Provider.of<Walletprovider>(context).isQuicksend;
     List<String> imageUrls = Provider.of<Walletprovider>(context).imageUrls;
     List<String> contactNames =
         Provider.of<Walletprovider>(context).contactNames;
@@ -36,7 +35,21 @@ class ContactCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: ontapcontactfunc,
+                    onTap: isPayment == true
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PaymentDone(
+                                          name: contactNames[index],
+                                          payment: Provider.of<Walletprovider>(
+                                                  context)
+                                              .payableAmt
+                                              .toString(),
+                                          urli: imageUrls[index],
+                                        )));
+                          }
+                        : () {},
                     child: CircleAvatar(
                       radius: 20,
                       backgroundColor: _colorCards[index],
