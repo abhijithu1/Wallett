@@ -6,17 +6,19 @@ import 'package:mytodo/widgets/quick_send_card.dart';
 import 'package:provider/provider.dart';
 
 class QuickSend extends StatefulWidget {
-  const QuickSend({super.key});
-
+  const QuickSend({super.key,this.index});
+  final int? index;
   @override
   State<QuickSend> createState() => _QuickSendState();
 }
 
 class _QuickSendState extends State<QuickSend> {
+  
   @override
   Widget build(BuildContext context) {
+    Provider.of<Walletprovider>(context).currentIndex = widget.index;
     bool isquickPay = Provider.of<Walletprovider>(context).isQuicksend;
-    double bal = 8251.36;
+    double? bal = Provider.of<Walletprovider>(context).balance;
     double? payableAmt = Provider.of<Walletprovider>(context).payableAmt;
     List<Widget> cards = [
       Padding(

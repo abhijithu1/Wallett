@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/providers/wallet_provider.dart';
 import 'package:mytodo/screens/payment_done.dart';
+import 'package:mytodo/screens/quick_send.dart';
 import 'package:provider/provider.dart';
 
 class ContactCard extends StatelessWidget {
@@ -38,18 +39,40 @@ class ContactCard extends StatelessWidget {
                     onTap: isPayment == true
                         ? () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PaymentDone(
-                                          name: contactNames[index],
-                                          payment: Provider.of<Walletprovider>(
-                                                  context)
-                                              .payableAmt
-                                              .toString(),
-                                          urli: imageUrls[index],
-                                        )));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentDone(
+                                  name: contactNames[index],
+                                  payment: Provider.of<Walletprovider>(context)
+                                      .payableAmt
+                                      .toString(),
+                                  urli: imageUrls[index],
+                                ),
+                              ),
+                            );
                           }
-                        : () {},
+                        : () {
+                            Provider.of<Walletprovider>(context, listen: false)
+                                .clickedFromHome();
+                            Navigator.of(context).push(PageRouteBuilder(
+                              pageBuilder:
+                                  ((context, animation, secondaryAnimation) =>
+                                      QuickSend(
+                                        index: index,
+                                      )),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(0.0, 1.0);
+                                const end = Offset.zero;
+                                final tween = Tween(begin: begin, end: end);
+                                final offsetAnimation = animation.drive(tween);
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
+                            ));
+                          },
                     child: CircleAvatar(
                       radius: 20,
                       backgroundColor: _colorCards[index],

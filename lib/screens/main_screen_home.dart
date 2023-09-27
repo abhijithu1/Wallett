@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mytodo/widgets/contact_cards.dart';
 import 'package:mytodo/widgets/credit_cards.dart';
 import 'package:mytodo/widgets/transaction_list.dart';
+import 'package:provider/provider.dart';
+import 'package:mytodo/providers/wallet_provider.dart';
 
 class MainHome extends StatelessWidget {
   const MainHome({
@@ -11,6 +13,7 @@ class MainHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double? balance = Provider.of<Walletprovider>(context).balance;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -33,11 +36,11 @@ class MainHome extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
-                  "\$8,251.36",
-                  style: TextStyle(
+                  "\$$balance",
+                  style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
@@ -70,7 +73,7 @@ class MainHome extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 120,
                 child: ContactCard(),
               ),

@@ -1,4 +1,5 @@
 import 'package:mytodo/providers/wallet_provider.dart';
+import 'package:mytodo/screens/payment_done.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,11 +27,20 @@ class _QuickPayCardState extends State<QuickPayCard> {
     "0",
     "X"
   ];
-  double bal = 8251.36;
   String money = "";
   double? moneyDouble = 0;
+
   @override
   Widget build(BuildContext context) {
+    double? bal = Provider.of<Walletprovider>(context).balance;
+
+    int? indexProv = Provider.of<Walletprovider>(context).currentIndex;
+    int newindex;
+    if (indexProv != null) {
+      newindex = indexProv;
+    } else {
+      newindex = 0;
+    }
     return SizedBox(
       height: double.infinity,
       child: Card(
@@ -185,7 +195,7 @@ class _QuickPayCardState extends State<QuickPayCard> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text("its null")));
                             }
-                            moneyDouble! > bal 
+                            moneyDouble! > bal!
                                 ? ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text("You cant do that")))
@@ -196,8 +206,26 @@ class _QuickPayCardState extends State<QuickPayCard> {
                                       listen: false)
                                   .payableAmt = moneyDouble;
                               Provider.of<Walletprovider>(context,
-                                      listen: false)
-                                  .clickedSend();
+                                              listen: false)
+                                          .isfromHome ==
+                                      true
+                                  ? Provider.of<Walletprovider>(context,
+                                          listen: false)
+                                      .clickedSend()
+                                  : Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PaymentDone(
+                                          name: Provider.of<Walletprovider>(
+                                                  context)
+                                              .contactNames[newindex],
+                                          urli: Provider.of<Walletprovider>(
+                                                  context)
+                                              .imageUrls[newindex],
+                                          payment: moneyDouble.toString(),
+                                        ),
+                                      ),
+                                    );
                             }
                           },
                           child: Text(

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class HomeScreenCard extends StatefulWidget {
   const HomeScreenCard({super.key, required this.bal, required this.payAmount});
 
-  final double bal;
+  final double? bal;
   final double? payAmount;
 
   @override

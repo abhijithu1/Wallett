@@ -4,9 +4,10 @@ class Walletprovider extends ChangeNotifier {
   bool _isQuicksend = false;
 
   bool get isQuicksend => _isQuicksend;
-
+  bool isfromHome = false;
   double? payableAmt = 0;
-
+  double? balance = 10000;
+  int? currentIndex ;
   List<String> imageUrls = [
     "https://images.pexels.com/photos/5490276/pexels-photo-5490276.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://media.istockphoto.com/id/856599656/photo/passport-picture-of-a-smiling-turkish-businesswoman.jpg?s=612x612&w=0&k=20&c=dgETy-9neViQs7SATDTOOa80QOhVFcLIomBFRxWVN_8=",
@@ -21,8 +22,28 @@ class Walletprovider extends ChangeNotifier {
       "Nissam",
       "Sophy"
     ];
+  // List <Map<String,double>> transactions = [
+  //   {"Cash Deposit": 5412.0},
+  //   {"Transfer Fund": 200.23},
+  //   {"Cash Deposit": 3245.12},
+  //   {"Transfer Fund": 32.4},
+  //   {"Cash Deposit": 52.0},
+  // ];
+  // void addTransaction(String typeOftransaction,double payableamount){
+  //   transactions.add({typeOftransaction:payableamount});
+  // }
+
   void clickedSend() {
     _isQuicksend = true;
+    notifyListeners();
+  }
+  void clickedFromHome(){
+    isfromHome = true;
+    notifyListeners();
+  }
+
+  void notClickedFromHome(){
+    isfromHome = false;
     notifyListeners();
   }
 
