@@ -233,6 +233,7 @@ class _QuickPayCardState extends State<QuickPayCard> {
                             style: GoogleFonts.quicksand(
                               fontSize: 20,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
